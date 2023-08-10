@@ -1,19 +1,4 @@
-interface CocktailCategoryResponse {
-    drinks: Category[];
-}
-
-interface CocktailDrinkResponse {
-    drinks: Drink[];
-}
-
-interface Category {
-    strCategory: string;
-}
-
-interface Drink {
-    strDrink: string;
-    strCategory: string;
-}
+import { CocktailCategoryResponse, CocktailDrinkResponse } from "types/types";
 
 const fetchFromAPI = async <T>(url: string) => {
     const { data, pending, error, refresh } = await useFetch(url);
