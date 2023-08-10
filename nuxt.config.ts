@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
   ssr: false,
   modules: ['@nuxtjs/color-mode'],
   colorMode: {
@@ -12,5 +11,10 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
+  },
+  runtimeConfig: {
+    public: {
+      API_BASE: process.env.API_BASE,
+    }
   },
 })
