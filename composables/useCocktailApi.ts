@@ -1,7 +1,13 @@
 import { CocktailCategoryResponse, CocktailDrinkResponse } from "types/types";
 
+
 const fetchFromAPI = async <T>(url: string) => {
+    const router = useRouter();
+
     const { data, pending, error, refresh } = await useFetch(url);
+    if (error.value) {
+        router.push({ path: "/error" });
+    }
     return {
         data,
         error,
