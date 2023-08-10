@@ -11,6 +11,7 @@ export interface Category {
 }
 
 export interface Drink {
+  idDrink?: string;
   strDrink: string;
   strCategory: string;
 }

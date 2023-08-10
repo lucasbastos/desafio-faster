@@ -1,8 +1,9 @@
 //save favorate drinks to local storage
 
 import { ref } from 'vue';
+import { Drink } from "types/types";
 
-const favoriteDrinks = ref<any[]>([]);
+const favoriteDrinks = ref<Drink[]>([]);
 const favoriteDrinksStorageKey = 'favoriteDrinks';
 
 export default () => {
@@ -18,16 +19,16 @@ export default () => {
         localStorage.setItem(favoriteDrinksStorageKey, JSON.stringify(favoriteDrinks.value));
     }
     
-    const addFavoriteDrink = (drink: any) => {
+    const addFavoriteDrink = (drink: Drink) => {
         favoriteDrinks.value.push(drink);
         saveFavoriteDrinks();
     }
 
-    const checkIfIsFavorite = (drink: any) => {
+    const checkIfIsFavorite = (drink: Drink) => {
         return favoriteDrinks.value.some((d) => d.idDrink === drink.idDrink);
     }
 
-    const removeFavoriteDrink = (drink: any) => {
+    const removeFavoriteDrink = (drink: Drink) => {
         const index = favoriteDrinks.value.findIndex((d) => d.idDrink === drink.idDrink);
         if (index > -1) {
             favoriteDrinks.value.splice(index, 1);

@@ -3,11 +3,7 @@ import { ref, Ref, toRaw } from 'vue';
 import useCocktailApi from '@/composables/useCocktailApi';
 import useFavoriteDrinks from '@/composables/useFavoriteDrinks';
 import CocktailCard from '@/components/CocktailCard.vue';
-
-interface Drink {
-    strDrink: string;
-    strCategory: string;
-}
+import { Drink } from "types/types";
 
 const selectedDrink: Ref<Drink | {}> = ref({});
 const selectedCategory: Ref<string> = ref('');
@@ -33,7 +29,8 @@ const closeModal = () => {
 
 const getByCategory = async () => {
     if (selectedCategoryOption.value === 'all') {
-        drinkList.value = toRaw(allDrinks.value as Drink[]);
+        const { data } = await getDrinkByName('');
+        drinkList.value = toRaw(data.value as Drink[]);
     } else if (selectedCategoryOption.value === 'favorites') {
         drinkList.value.drinks = await useFavoriteDrinks().loadFavoriteDrinks();
 
@@ -77,7 +74,7 @@ fetchByName();
             </thead>
             <tbody v-if="drinkList.drinks">
                 <tr v-for="drink in drinkList.drinks" :key="drink.strDrink">
-                    <td class="border px-4 py-2" @click="openModal(drink)">
+                    <td class="border px-4 py-2 cursor-pointer" @click="openModal(drink)">
                         {{ drink.strDrink }}
                     </td>
                     <td v-if="drink.strCategory" class="border px-4 py-2">{{ drink.strCategory }}</td>
